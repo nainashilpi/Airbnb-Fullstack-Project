@@ -58,7 +58,7 @@ https://airbnb-fullstack-project-d1sb.onrender.com
 - HTML5  
 - CSS3  
 - JavaScript  
-- EJS (Embedded JavaScript Templates)
+- EJS
 
 ### Backend
 - Node.js  
@@ -66,7 +66,7 @@ https://airbnb-fullstack-project-d1sb.onrender.com
 
 ### Database
 - MongoDB  
-- MongoDB Atlas (Cloud Database)
+- MongoDB Atlas
 
 ### Authentication & Security
 - Passport.js  
@@ -74,18 +74,16 @@ https://airbnb-fullstack-project-d1sb.onrender.com
 - Connect-Mongo  
 
 ### Cloud Services & APIs
-- Cloudinary (Image Storage)  
-- Mapbox (Maps & Geolocation)
+- Cloudinary  
+- Mapbox  
 
 ### Tools & Deployment
 - Git & GitHub  
-- Render (Deployment Platform)
+- Render  
 
 ---
 
 ## 📁 Project Structure
-
-
 ```
 Airbnb-Fullstack-Project
 │
@@ -103,4 +101,64 @@ Airbnb-Fullstack-Project
 ├── app.js # Main server file
 ├── package.json
 └── .gitignore
+```
+
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env` file in the root directory and configure the following:
+```
+ATLASDB_URL=your_mongodb_atlas_url
+SECRET=your_session_secret
+MAP_TOKEN=your_mapbox_token
+CLOUDINARY_CLOUD_NAME=your_cloudinary_name
+CLOUDINARY_KEY=your_cloudinary_key
+CLOUDINARY_SECRET=your_cloudinary_secret
+```
+
+⚠️ **Do not push `.env` to GitHub**
+
+
+## 🚀 Local Setup & Installation
+
+```bash
+git clone https://github.com/nainashilpi/Airbnb-Fullstack-Project.git
+cd Airbnb-Fullstack-Project
+npm install
+npm start
+```
+
+Open the application at:
+
+http://localhost:3000
+
+
+## 🧠 Learning Outcomes
+
+- Built a complete full-stack web application**
+- Implemented authentication & authorization**
+- Integrated third-party APIs (Cloudinary, Mapbox)**
+- Cloud-based image storage & maps
+- Used MongoDB Atlas for cloud database management**
+- Followed MVC architecture for scalability
+-Deployed and debugged a production application
+
+##
+
+### 👩‍💻 About the Developer
+ **Naina Shilpi**      
+ **B.Tech – Information Technology**
+ 
+```
+🔗 GitHub: https://github.com/nainashilpi
+```
+##
+### ⭐ Feedback
+Feedback and suggestions are welcome!
+---
+
+
+
+
 
