@@ -1,0 +1,271 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  body {
+    background: #f7f7f7;
+  }
+
+  /* ================= FILTER BAR ================= */
+  #filters {
+    display: flex;
+    align-items: center;
+    gap: 1.8rem;
+    padding: 1rem 0;
+    overflow-x: auto;
+  }
+
+  .filter {
+    text-align: center;
+    min-width: 75px;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid transparent;
+    transition: all 0.25s ease;
+    opacity: 0.6;
+  }
+
+  .filter i {
+    font-size: 1.2rem;
+  }
+
+  .filter p {
+    font-size: 0.75rem;
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .filter:hover {
+    opacity: 1;
+    border-bottom: 2px solid #fe424d;
+    cursor: pointer;
+  }
+  .filter.active {
+  opacity: 1;
+  border-bottom: 2px solid #fe424d;
+  }
+
+
+  /* ================= TAX TOGGLE ================= */
+  .tax-toggle {
+    margin-left: auto;
+    background: #fff;
+    padding: 0.9rem 1.5rem;
+    border-radius: 2rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    font-size: 0.8rem;
+  }
+
+  /* ================= LISTINGS ================= */
+  .listing-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+ .listing-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: 
+    transform 0.35s cubic-bezier(.21,.6,.35,1),
+    box-shadow 0.35s ease;
+  box-shadow:
+    0 4px 12px rgba(0,0,0,0.08),
+    0 10px 25px rgba(0,0,0,0.1);
+
+  opacity: 0;
+  animation: fadeUp 0.7s ease forwards;
+}
+
+
+  /* stagger animation */
+.listing-link:nth-child(1) .listing-card { animation-delay: 0.05s; }
+.listing-link:nth-child(2) .listing-card { animation-delay: 0.12s; }
+.listing-link:nth-child(3) .listing-card { animation-delay: 0.18s; }
+.listing-link:nth-child(4) .listing-card { animation-delay: 0.24s; }
+.listing-link:nth-child(5) .listing-card { animation-delay: 0.3s; }
+.listing-link:nth-child(6) .listing-card { animation-delay: 0.36s; }
+
+
+ .listing-card:hover {
+  transform: translateY(-14px) scale(1.035);
+   box-shadow:
+    0 16px 40px rgba(0,0,0,0.25),
+    0 35px 80px rgba(0,0,0,0.25);
+  }
+
+  .listing-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    transition: transform 0.45s ease;
+  }
+
+  .listing-card:hover img {
+    transform: translateY(-6px);
+  }
+
+  .listing-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0) 65%,
+      rgba(0,0,0,0.12)
+    );
+    pointer-events: none;
+  }
+  /* heart */
+  .fav {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 50%;
+    padding: 8px;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    z-index: 2;
+  }
+
+  .listing-info {
+    padding: 0.9rem 1rem 1.1rem;
+  }
+
+  .rating {
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+    display: inline-block;
+  }
+
+  .listing-info h6 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .listing-info p {
+    font-size: 0.85rem;
+    color: #555;
+    margin: 0;
+  }
+
+  .tax-info {
+    display: none;
+    font-size: 0.8rem;
+    color: #888;
+  }
+
+  @keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+</style>
+
+<!-- ================= FILTER BAR ================= -->
+<div id="filters">
+  <div class="filter">
+    <i class="fa-solid fa-fire"></i>
+    <p>Trending</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-mountain-city"></i>
+    <p>Cities</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-bed"></i>
+    <p>Rooms</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-mountain"></i>
+    <p>Mountains</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-person-swimming"></i>
+    <p>Pools</p>
+  </div>
+  <div class="filter">
+    <i class="fa-brands fa-fort-awesome"></i>
+    <p>Castles</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-campground"></i>
+    <p>Camping</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-tractor"></i>
+    <p>Farms</p>
+  </div>
+
+  <div class="tax-toggle">
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+      <label class="form-check-label">Total after taxes</label>
+    </div>
+  </div>
+</div>
+
+<!-- ================= LISTINGS GRID ================= -->
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4 mt-4">
+  <% for(let listing of allListings){ %>
+    <a href="/listings/<%= listing._id %>" class="listing-link">
+      <div class="listing-card">
+
+        <div class="fav">
+          <i class="fa-regular fa-heart"></i>
+        </div>
+
+        <img src="<%= listing.image.url %>" alt="listing">
+
+        <div class="listing-info">
+          <span class="rating">★ 4.8</span>
+          <h6><%= listing.title %></h6>
+          <p>
+            ₹<%= listing.price.toLocaleString("en-IN") %> / night
+            <span class="tax-info"> +18% GST</span>
+          </p>
+        </div>
+      </div>
+    </a>
+  <% } %>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    /* ================= TAX TOGGLE ================= */
+    const taxSwitch = document.getElementById("flexSwitchCheckDefault");
+
+    if (taxSwitch) {
+      taxSwitch.addEventListener("change", () => {
+        document.querySelectorAll(".tax-info").forEach(el => {
+          el.style.display = taxSwitch.checked ? "inline" : "none";
+        });
+      });
+    }
+
+    const filters = document.querySelectorAll(".filter");
+
+    filters.forEach(filter => {
+      filter.addEventListener("click", () => {
+
+        filters.forEach(f => f.classList.remove("active"));
+
+        filter.classList.add("active");
+
+        window.scrollTo({
+          top: 350,
+          behavior: "smooth"
+        });
+      });
+    });
+  });
+</script>

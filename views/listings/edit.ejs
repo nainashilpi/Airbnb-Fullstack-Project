@@ -1,0 +1,224 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  .edit-wrapper {
+    max-width: 920px;
+    margin: 30px auto;
+    background: #ffffff;
+    padding: 32px;
+    border-radius: 22px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .edit-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .edit-title {
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    margin: 0;
+  }
+
+  .edit-subtitle {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+  }
+
+  .edit-wrapper .form-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #333;
+  }
+
+  .edit-wrapper .form-control {
+    border-radius: 14px;
+    padding: 11px 12px;
+    border: 1px solid rgba(0,0,0,0.08);
+    transition: all 0.2s ease;
+  }
+
+  .edit-wrapper .form-control:focus {
+    border-color: #fe424d;
+    box-shadow: 0 0 0 0.12rem rgba(254,66,77,0.18);
+  }
+
+  .image-preview {
+    width: 100%;
+    max-height: 260px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  }
+
+  .edit-wrapper .file-input {
+    border-radius: 14px;
+  }
+
+  .edit-btn {
+    background: linear-gradient(135deg, #fe424d, #ff5a60);
+    border: none;
+    border-radius: 26px;
+    padding: 10px 22px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    transition: all 0.25s ease;
+  }
+
+  .edit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(254,66,77,0.28);
+  }
+
+  .section-divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, #eee, #ddd, #eee);
+    margin: 22px 0;
+  }
+
+  .card-box {
+    background: #f9fafb;
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .badge-pill {
+    background: #fff3f4;
+    color: #fe424d;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .edit-wrapper {
+      padding: 20px;
+    }
+  }
+</style>
+
+<div class="row mt-3">
+  <div class="col-12">
+    <div class="edit-wrapper">
+      
+      <div class="edit-header">
+        <h3 class="edit-title">Update Listing Details</h3>
+        <span class="badge-pill">Editing mode</span>
+      </div>
+
+      <p class="edit-subtitle">
+        Make changes to your property listing. Updates will reflect immediately.
+      </p>
+
+      <form 
+        method="POST" 
+        action="/listings/<%= listing._id %>?_method=PUT" 
+        novalidate
+        class="needs-validation"
+        enctype="multipart/form-data"
+      >
+
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input 
+            name="listing[title]" 
+            value="<%= listing.title %>" 
+            type="text" 
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">Please enter a title</div> 
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea 
+            name="listing[description]" 
+            class="form-control"
+            rows="4"
+            required
+          ><%= listing.description %></textarea>
+          <div class="invalid-feedback">Please enter a short description</div> 
+        </div>
+
+        <hr class="section-divider" />
+
+        <div class="mb-3 card-box">
+          <label class="form-label mb-2">Current Image</label><br>
+          <img 
+            src="<%= originalImageUrl %>" 
+            class="image-preview"
+            alt="Listing image"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="image" class="form-label">Upload New Image</label>
+          <input 
+            name="listing[image]"  
+            type="file"
+            class="form-control file-input"
+          />
+        </div>
+
+        <hr class="section-divider" />
+
+        <div class="row">
+          <div class="mb-3 col-md-4">
+            <label for="price" class="form-label">Price (per night)</label>
+            <input 
+              name="listing[price]" 
+              value="<%= listing.price %>" 
+              type="number"
+              class="form-control"
+              required
+            />
+            <div class="invalid-feedback">Price should be valid</div> 
+          </div>
+
+          <div class="mb-3 col-md-8">
+            <label for="country" class="form-label">Country</label>
+            <input 
+              name="listing[country]" 
+              value="<%= listing.country %>" 
+              type="text"
+              class="form-control"
+              required
+            />
+            <div class="invalid-feedback">Country name should be valid</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="location" class="form-label">Location</label>
+          <input 
+            name="listing[location]" 
+            value="<%= listing.location %>" 
+            type="text"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">Location should be valid</div> 
+        </div>
+
+        <button class="btn edit-btn text-white mt-3">
+          Save Changes
+        </button>
+
+      </form>
+    </div>
+  </div>
+</div>

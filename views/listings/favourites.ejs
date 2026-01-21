@@ -1,0 +1,243 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  :root {
+    --brand: #fe424d;
+    --soft-bg: #f6f7f9;
+    --card-bg: #ffffff;
+    --border-soft: rgba(0,0,0,0.08);
+    --text-muted: #6c757d;
+  }
+
+  body {
+    background: var(--soft-bg);
+  }
+
+  .fav-wrapper {
+    max-width: 920px;
+    margin: 0 auto;
+    animation: fadeIn 0.6s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== HEADER ===== */
+  .fav-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .fav-title {
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .fav-sub {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  .count-badge {
+    background: #fff3f4;
+    color: var(--brand);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  /* ===== CARD ===== */
+  .fav-item {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    background: var(--card-bg);
+    border-radius: 18px;
+    border: 1px solid var(--border-soft);
+    overflow: hidden;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .fav-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.14);
+  }
+
+  .fav-img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+  }
+
+  .fav-body {
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .fav-title-card {
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .location-text {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .price-text {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .tag {
+    display: inline-block;
+    background: #f1f3f5;
+    color: #444;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+
+  /* ===== BUTTON ROW ===== */
+  .btn-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .view-btn {
+    border-radius: 20px;
+    border: 1px solid #222;
+    color: #222;
+    font-weight: 600;
+    padding: 6px 16px;
+  }
+
+  .view-btn:hover {
+    background: #222;
+    color: white;
+  }
+
+  .remove-btn {
+    border-radius: 20px;
+    background: transparent;
+    border: 1px solid var(--brand);
+    color: var(--brand);
+    font-weight: 600;
+    padding: 6px 16px;
+  }
+
+  .remove-btn:hover {
+    background: var(--brand);
+    color: white;
+  }
+
+  /* ===== EMPTY STATE ===== */
+  .fav-empty {
+    text-align: center;
+    padding: 80px 20px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  }
+
+  .fav-empty i {
+    font-size: 46px;
+    color: var(--brand);
+    margin-bottom: 12px;
+  }
+
+  .fav-empty p {
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 768px) {
+    .fav-item {
+      grid-template-columns: 1fr;
+    }
+
+    .fav-img {
+      height: 230px;
+    }
+  }
+</style>
+
+<div class="container mt-4 fav-wrapper">
+
+  <!-- HEADER -->
+  <div class="fav-header mb-4">
+    <div>
+      <h3 class="fav-title">Your Favourites</h3>
+      <p class="fav-sub">
+        A curated list of places you loved and saved for later.
+      </p>
+    </div>
+
+    <% if (listings.length > 0) { %>
+      <span class="count-badge">
+        <%= listings.length %> saved
+      </span>
+    <% } %>
+  </div>
+
+  <% if (listings.length === 0) { %>
+    <div class="fav-empty">
+      <i class="fa-regular fa-heart"></i>
+      <h5>No favourites yet</h5>
+      <p class="mt-2">
+        Start exploring and save listings you love.
+      </p>
+      <a href="/listings" class="btn btn-outline-dark btn-sm mt-2">
+        Explore Listings
+      </a>
+    </div>
+
+  <% } else { %>
+
+  <div class="d-flex flex-column gap-3">
+    <% for (let listing of listings) { %>
+      <div class="fav-item">
+
+        <img src="<%= listing.image.url %>" class="fav-img">
+
+        <div class="fav-body">
+          <div>
+            <span class="tag">Saved listing</span>
+            <h5 class="fav-title-card"><%= listing.title %></h5>
+            <p class="location-text">
+              <%= listing.location %>, <%= listing.country %>
+            </p>
+            <p class="price-text">
+              ₹<%= listing.price.toLocaleString("en-IN") %> / night
+            </p>
+          </div>
+
+          <div class="btn-row">
+            <a href="/listings/<%= listing._id %>" class="btn view-btn btn-sm">
+              View details
+            </a>
+
+            <form action="/listings/<%= listing._id %>/remove-favourite" method="POST">
+              <button class="btn remove-btn btn-sm">
+                Remove
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    <% } %>
+  </div>
+  <% } %>
+</div>

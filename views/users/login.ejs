@@ -1,0 +1,143 @@
+<% layout("/layouts/boilerplate") %> 
+
+<style>
+  body {
+    background: linear-gradient(180deg, #ffffff, #f4f6f8);
+  }
+
+  .auth-wrapper {
+    max-width: 440px;
+    margin: 40px auto;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(6px);
+    padding: 32px;
+    border-radius: 22px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    animation: fadeIn 0.6s ease-in-out;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .auth-title {
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: 0.2px;
+  }
+
+  .auth-sub {
+    color: #6c757d;
+    font-size: 0.95rem;
+    margin-bottom: 22px;
+  }
+
+  .form-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .new-card .form-control {
+    border-radius: 16px;
+    padding: 12px 14px;
+  }
+
+  .new-card .form-control:focus {
+    border-color: #fe424d;
+    box-shadow: 0 0 0 0.12rem rgba(254,66,77,0.18);
+  }
+
+  .login-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #fe424d, #ff5a60);
+    border: none;
+    border-radius: 24px;
+    padding: 10px;
+    font-weight: 600;
+    transition: all 0.25s ease;
+  }
+
+  .login-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(254,66,77,0.25);
+  }
+
+  .auth-footer {
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 16px;
+  }
+
+  .auth-footer a {
+    color: #fe424d;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .auth-footer a:hover {
+    text-decoration: underline;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 18px 0;
+    color: #888;
+    font-size: 0.85rem;
+  }
+
+  .divider::before,
+  .divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .divider::before { margin-right: 10px; }
+  .divider::after { margin-left: 10px; }
+</style>
+
+<div class="auth-wrapper">
+  <h2 class="auth-title">Welcome back</h2>
+  <p class="auth-sub">Log in to continue your journey</p>
+
+  <form action="/login" method="POST" class="needs-validation" novalidate>
+
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input 
+        name="username"
+        id="username"
+        type="text"
+        class="form-control" 
+        required 
+        placeholder="Enter your username"
+      />
+      <div class="invalid-feedback">Please enter your username.</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input 
+        name="password"
+        id="password"
+        type="password"
+        class="form-control" 
+        required 
+        placeholder="Enter your password"
+      />
+      <div class="invalid-feedback">Please enter your password.</div>
+    </div>
+
+    <button class="btn login-btn text-white">Log in</button>
+  </form>
+
+  <div class="divider">or</div>
+
+  <div class="auth-footer">
+    Don’t have an account? <a href="/signup">Sign up</a>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  .alert-wrapper {
+    max-width: 480px;
+    margin: 40px auto;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .custom-alert {
+    background: rgba(254, 66, 77, 0.08); 
+    border: 1px solid rgba(254, 66, 77, 0.25);
+    border-radius: 16px;
+    padding: 18px 20px;
+    text-align: center;
+  }
+
+  .alert-icon {
+    font-size: 26px;
+    color: #fe424d;
+    margin-bottom: 6px;
+  }
+
+  .alert-message {
+    color: #333;
+    font-weight: 500;
+    margin: 0;
+  }
+</style>
+
+<div class="alert-wrapper">
+  <div class="custom-alert">
+    <div class="alert-icon">
+      <i class="fa-solid fa-circle-exclamation"></i>
+    </div>
+    <p class="alert-message">
+      <%= message %>
+    </p>
+  </div>
+</div>

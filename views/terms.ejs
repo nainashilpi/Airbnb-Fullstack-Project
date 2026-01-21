@@ -1,0 +1,106 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  body {
+    background: #ffffff;
+  }
+
+  .terms-page {
+    max-width: 760px;
+    margin: 5rem auto;
+    padding: 0 1.2rem;
+    animation: fadeUp 0.5s ease;
+  }
+
+  .terms-page h1 {
+    font-size: 2.1rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+
+  .last-updated {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 3rem;
+  }
+
+  .terms-block {
+    margin-bottom: 2.5rem;
+  }
+
+  .terms-block h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+
+  .terms-block p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #333;
+    margin: 0;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* mobile */
+  @media (max-width: 576px) {
+    .terms-page {
+      margin: 3rem auto;
+    }
+
+    .terms-page h1 {
+      font-size: 1.7rem;
+    }
+  }
+</style>
+
+<div class="terms-page">
+  <h1>Terms & Conditions</h1>
+  <p class="last-updated">
+    Last updated: <%= new Date().toLocaleDateString() %>
+  </p>
+
+  <div class="terms-block">
+    <h4>Acceptance of Terms</h4>
+    <p>
+      By accessing or using Wanderlust, you agree to comply with and be bound by
+      these Terms & Conditions. If you do not agree, you should not use the
+      platform.
+    </p>
+  </div>
+
+  <div class="terms-block">
+    <h4>User Responsibilities</h4>
+    <p>
+      Users are responsible for the accuracy and legality of the listings and
+      reviews they submit. Content that is misleading, offensive, or unlawful
+      may be removed.
+    </p>
+  </div>
+
+  <div class="terms-block">
+    <h4>Content Moderation</h4>
+    <p>
+      Wanderlust reserves the right to monitor, modify, or remove content that
+      violates platform guidelines or applicable laws.
+    </p>
+  </div>
+
+  <div class="terms-block">
+    <h4>Account Suspension</h4>
+    <p>
+      Any misuse of the platform may result in temporary or permanent suspension
+      of user accounts.
+    </p>
+  </div>
+</div>
